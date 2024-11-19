@@ -102,6 +102,8 @@
 const express = require("express");
 const Chat = require("../models/chat");
 const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../cloudinaryConfig");
 
 const router = express.Router();
 
@@ -162,6 +164,16 @@ router.post("/upload", upload.single("file"), (req, res) => {
   }`;
 
   res.status(200).json({ message: "File uploaded successfully", url: fileUrl });
+});
+router.post('/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded');
+  }
+
+  res.status(200).json({
+    message: 'File uploaded successfully',
+    url: req.file.path, // Cloudinary URL
+  });
 });
 
 // Get recent chats for a user

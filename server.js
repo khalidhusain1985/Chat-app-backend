@@ -17,6 +17,8 @@ const { log } = require("console");
 const audioSignal = require("./services/audioSignal");
 const videoSignal = require("./services/videoSIgnal");
 const connectDB = require("./db.js");
+require('dotenv').config();
+
 // const callRoutes = require("./routes/call");
 
 const app = express();
