@@ -6,24 +6,7 @@
 // const upload = require("../multerConfig");
 // const Media = require("../models/media");
 
-// router.post("/upload", upload.single("mediaFile"), (req, res) => {
-//   if (!req.file) {
-//     return res.status(400).send("No file uploaded");
-//   }
 
-//   const newMedia = new Media({
-//     sender: req.body.sender,
-//     receiver: req.body.receiver,
-//     filePath: req.file.path,
-//   });
-
-//   newMedia
-//     .save()
-//     .then(() => res.status(200).json({ message: "File uploaded successfully" }))
-//     .catch((err) =>
-//       res.status(500).json({ message: "Database error", error: err })
-//     );
-// });
 
 // router.post("/send", async (req, res) => {
 //   const { senderId, receiverId, message } = req.body;
@@ -102,8 +85,6 @@
 const express = require("express");
 const Chat = require("../models/chat");
 const multer = require("multer");
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
-const cloudinary = require("../cloudinaryConfig");
 
 const router = express.Router();
 
@@ -158,22 +139,30 @@ router.get("/history/:userId/:contactId", async (req, res) => {
 });
 
 // Upload media file
+// router.post("/upload", upload.single("mediaFile"), (req, res) => {
+//   if (!req.file) {
+//     return res.status(400).send("No file uploaded");
+//   }
+
+//   const newMedia = new Media({
+//     sender: req.body.sender,
+//     receiver: req.body.receiver,
+//     filePath: req.file.path,
+//   });
+
+//   newMedia
+//     .save()
+//     .then(() => res.status(200).json({ message: "File uploaded successfully" }))
+//     .catch((err) =>
+//       res.status(500).json({ message: "Database error", error: err })
+//     );
+// });
 router.post("/upload", upload.single("file"), (req, res) => {
   const fileUrl = `${req.protocol}://${req.get("host")}/uploads/${
     req.file.filename
   }`;
 
   res.status(200).json({ message: "File uploaded successfully", url: fileUrl });
-});
-router.post('/upload', upload.single('file'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).send('No file uploaded');
-  }
-
-  res.status(200).json({
-    message: 'File uploaded successfully',
-    url: req.file.path, // Cloudinary URL
-  });
 });
 
 // Get recent chats for a user

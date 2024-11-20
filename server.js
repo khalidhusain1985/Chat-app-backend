@@ -17,52 +17,20 @@ const { log } = require("console");
 const audioSignal = require("./services/audioSignal");
 const videoSignal = require("./services/videoSIgnal");
 const connectDB = require("./db.js");
-require('dotenv').config();
 
 // const callRoutes = require("./routes/call");
 
 const app = express();
 const server = http.createServer(app);
 
-// app.use(
-//   cors({
-//     origin: "*",
-//     credentials: true,
-//   })
-// );
-
-// Define allowed origins
-const allowedOrigins = [
-  "http://localhost:5173", // Your Vite dev server
-  "http://localhost:3000", // Optional: Your local backend
-  "https://damp-depths-11309-368a38513de2.herokuapp.com", // Your production backend
-  "https://messageinabotlle.app",       // Production frontend
-  "https://www.messageinabotlle.app",   // Production with www subdomain
-  "capacitor://localhost",              // Ionic app on iOS/Android
-  "ionic://localhost"                   // Older Ionic versions or custom schemes
-  
-];
-
-// CORS configuration
 app.use(
   cors({
-    origin: function (origin, callback) {
-      // Allow requests with no origin (like mobile apps or curl requests)
-      if (!origin) return callback(null, true);
-
-      // Check if the origin is allowed
-      if (allowedOrigins.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,               // Allow credentials (cookies, authorization headers, etc.)
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed HTTP methods
-    allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
+    origin: "*",      
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-
 
 const io = socketIo(server, {
   cors: {
