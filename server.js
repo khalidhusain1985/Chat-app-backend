@@ -29,13 +29,12 @@ const server = http.createServer(app);
 //   })
 // );
 
-// Define allowed origins
 const allowedOrigins = [
-  "http://localhost:5173", // Your Vite dev server
-  "http://localhost:3000", // Optional: Your local backend
-  "https://damp-depths-11309-368a38513de2.herokuapp.com", // Your production backend
-  "https://messageinabotlle.app",       // Production frontend
-  "https://www.messageinabotlle.app",   // Production with www subdomain
+  "http://localhost:5173",
+  "http://localhost:3000", 
+  "https://damp-depths-11309-368a38513de2.herokuapp.com", 
+  "https://messageinabotlle.app",      
+  "https://www.messageinabotlle.app",  
   "capacitor://localhost",              // Ionic app on iOS/Android
   "ionic://localhost"                   // Older Ionic versions or custom schemes
   
